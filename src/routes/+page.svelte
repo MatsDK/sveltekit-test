@@ -2,7 +2,11 @@
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import type { PageData } from './$types';
+
+  export let data: PageData;
 </script>
+
 
 <svelte:head>
 	<title>Home</title>
@@ -20,6 +24,16 @@
 
 		to your new<br />SvelteKit app
 	</h1>
+
+	<a href="/create">Create a todo</a>
+
+	<ul>
+		{#each data.todos as todo}
+		<li>
+			{todo.text}
+		</li>
+		{/each}
+	</ul>
 
 	<h2>
 		try editing <strong>src/routes/+page.svelte</strong>
