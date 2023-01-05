@@ -1,5 +1,5 @@
 import db from "$lib/db";
-import { redirect } from '@sveltejs/kit';
+import { redirect, } from '@sveltejs/kit';
 import type { Actions } from "./$types";
 
 export const actions: Actions = {
@@ -15,6 +15,6 @@ export const actions: Actions = {
 			}
 		})
 
-		throw redirect(300, "/")
+		throw redirect(302, "/")
 	}
 };
