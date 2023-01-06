@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Hero from './Hero.svelte';
+	import Hero from '$lib/components/Hero.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -16,9 +16,9 @@
 
 	<ul>
 		{#each data.todos as todo}
-		<li>
-			{todo.text}
-		</li>
+			<li>
+				{todo.text}
+			</li>
 		{/each}
 	</ul>
 </section>

@@ -1,16 +1,15 @@
 <script>
 	import '../app.postcss';
-	import Header from './Header.svelte';
-	import "./styles.css"
+	import Header from '$lib/components/Header.svelte';
+	import './styles.css';
 </script>
 
 <div class="bg-primary min-h-screen text-white">
 	<Header />
 
-	<main >
+	<main>
 		<slot />
 	</main>
 
-	<footer>
-	</footer>
+	<footer />
 </div>

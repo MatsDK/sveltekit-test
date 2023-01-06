@@ -13,7 +13,7 @@ const config = {
 				'header-height': "64px"
 			},
 			backgroundImage: {
-				'main-gradient': "linear-gradient(to right, #5b21b6, #0ea5e9)",
+				'main-gradient': "linear-gradient(to right, #4338ca, #0ea5e9)",
 			}
 		}
 	},
