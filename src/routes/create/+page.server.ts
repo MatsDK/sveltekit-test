@@ -1,6 +1,6 @@
-import db from "$lib/db";
-import { redirect, } from '@sveltejs/kit';
-import type { Actions } from "./$types";
+import db from '$lib/db';
+import { redirect } from '@sveltejs/kit';
+import type { Actions } from './$types';
 
 export const actions: Actions = {
 	create: async ({ request }) => {
@@ -13,8 +13,8 @@ export const actions: Actions = {
 				done: false,
 				text
 			}
-		})
+		});
 
-		throw redirect(302, "/")
+		throw redirect(302, '/');
 	}
 };

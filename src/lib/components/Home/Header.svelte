@@ -1,18 +1,24 @@
 <script>
-	import Button from './Button.svelte';
+	import Button from '../Button.svelte';
 	import { page } from '$app/stores';
-	console.log($page);
+	import { signIn } from '@auth/sveltekit/client';
+	import Logo from '../Logo.svelte';
 </script>
 
-<header class="sticky w-full top-0 h-header-height backdrop-blur-md backdrop-saturate-150">
+<header class="fixed w-full top-0 h-header-height backdrop-blur-md backdrop-saturate-150">
 	<nav class=" max-w-max-page-width max-page-width mx-auto w-full h-full px-5">
 		<ul
 			class="flex gap-5 items-center h-full relative after:absolute after:h-px after:w-full after:bottom-0 after:bg-white/10 font-medium"
 		>
-			<li class="md:block hidden">
+			<li class="">
+				<a href="/" class="">
+					<Logo />
+				</a>
+			</li>
+			<li class="md:block hidden hover:text-offwhite transition-colors">
 				<a href="/">Home</a>
 			</li>
-			<li class="md:block hidden">
+			<li class="md:block hidden hover:text-offwhite transition-colors">
 				<a href="/">Features</a>
 			</li>
 
@@ -31,7 +37,8 @@
 				<a href="/auth/signout" class="button">Log out</a>
 			{:else}
 				<li class="ml-auto">
-					<a href="/auth/signin">Log in</a>
+					<!-- <a href="/auth/signin">Log in</a> -->
+					<button on:click={() => signIn('github')}>Log in</button>
 				</li>
 				<li class="">
 					<Button><a href="/auth/signup">Sign up</a></Button>

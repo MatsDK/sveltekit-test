@@ -11,16 +11,4 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<Header />
-<Hero />
-<section class="h-[500vh] my-32">
-	<a href="/create">Create a todo</a>
-
-	<ul>
-		{#each data.todos as todo}
-			<li>
-				{todo.text}
-			</li>
-		{/each}
-	</ul>
-</section>
+<section class="h-[500vh]">hello world</section>
