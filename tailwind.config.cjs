@@ -5,7 +5,8 @@ const config = {
 		extend: {
 			colors: {
 				primary: '#000208',
-				offwhite: '#b4bcd0'
+				offwhite: '#b4bcd0',
+				blue: '#0ea5e9'
 			},
 			maxWidth: {
 				'max-page-width': '1200px'

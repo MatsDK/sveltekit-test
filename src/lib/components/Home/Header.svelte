@@ -41,7 +41,7 @@
 					<button on:click={() => signIn('github')}>Log in</button>
 				</li>
 				<li class="">
-					<Button><a href="/auth/signup">Sign up</a></Button>
+					<Button>Sign up</Button>
 				</li>
 			{/if}
 		</ul>
