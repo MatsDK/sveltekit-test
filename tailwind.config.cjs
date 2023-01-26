@@ -5,6 +5,7 @@ const config = {
 		extend: {
 			colors: {
 				primary: '#000208',
+				secondary: '#202023',
 				offwhite: '#b4bcd0',
 				blue: '#0ea5e9'
 			},
@@ -26,7 +27,7 @@ const config = {
 				}
 			},
 			animation: {
-				'fade-in': 'fade-in 1000ms var(--animation-delay, 0ms) ease'
+				'fade-in': 'fade-in 1000ms var(--animation-delay, 0ms) ease forwards'
 			}
 		}
 	},

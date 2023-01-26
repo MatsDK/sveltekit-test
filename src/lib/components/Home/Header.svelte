@@ -3,9 +3,11 @@
 	import { page } from '$app/stores';
 	import { signIn } from '@auth/sveltekit/client';
 	import Logo from '../Logo.svelte';
+	import BorderGradientButton from '../BorderGradientButton.svelte';
+	import BorderGradientButton2 from '../BorderGradientButton2.svelte';
 </script>
 
-<header class="fixed w-full top-0 h-header-height backdrop-blur-md backdrop-saturate-150">
+<header class="fixed z-10 w-full top-0 h-header-height backdrop-blur-md backdrop-saturate-150">
 	<nav class=" max-w-max-page-width max-page-width mx-auto w-full h-full px-5">
 		<ul
 			class="flex gap-5 items-center h-full relative after:absolute after:h-px after:w-full after:bottom-0 after:bg-white/10 font-medium"
@@ -37,11 +39,13 @@
 				<a href="/auth/signout" class="button">Log out</a>
 			{:else}
 				<li class="ml-auto">
-					<!-- <a href="/auth/signin">Log in</a> -->
-					<button on:click={() => signIn('github')}>Log in</button>
+					<button
+						class="border-white border px-3 py-[2px] rounded-lg hover:text-white text-black bg-white transition-colors hover:bg-transparent"
+						on:click={() => signIn('github')}>Log in</button
+					>
 				</li>
 				<li class="">
-					<Button>Sign up</Button>
+					<!-- <Button>Sign up</Button> -->
 				</li>
 			{/if}
 		</ul>
