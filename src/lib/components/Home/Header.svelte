@@ -1,10 +1,7 @@
 <script>
-	import Button from '../Button.svelte';
 	import { page } from '$app/stores';
-	import { signIn } from '@auth/sveltekit/client';
+	import { signIn, signOut } from '@auth/sveltekit/client';
 	import Logo from '../Logo.svelte';
-	import BorderGradientButton from '../BorderGradientButton.svelte';
-	import BorderGradientButton2 from '../BorderGradientButton2.svelte';
 </script>
 
 <header class="fixed z-10 w-full top-0 h-header-height backdrop-blur-md backdrop-saturate-150">
@@ -25,10 +22,19 @@
 			</li>
 
 			{#if $page.data.session}
-				<span class="ml-auto">
+				<!-- <span class="ml-auto">
 					<small>Signed in as</small>
 					<strong>{$page.data.session.user?.name}</strong>
-				</span>
+				</span> -->
+
+				<li class="ml-auto">
+					<a
+						href="/dashboard"
+						class="border-white border px-3 py-[2px] rounded-lg hover:text-white text-black bg-white transition-colors hover:bg-transparent"
+					>
+						Dashboard
+					</a>
+				</li>
 				{#if $page.data.session.user?.image}
 					<img
 						src={$page.data.session.user.image}
@@ -36,16 +42,14 @@
 						class="rounded-full w-10 h-10 bg-main-gradient"
 					/>
 				{/if}
-				<a href="/auth/signout" class="button">Log out</a>
+				<button on:click={() => signOut()}> Log out </button>
+				<!-- <a href="/auth/signout" class="button">Log out</a> -->
 			{:else}
 				<li class="ml-auto">
 					<button
 						class="border-white border px-3 py-[2px] rounded-lg hover:text-white text-black bg-white transition-colors hover:bg-transparent"
 						on:click={() => signIn('github')}>Log in</button
 					>
-				</li>
-				<li class="">
-					<!-- <Button>Sign up</Button> -->
 				</li>
 			{/if}
 		</ul>

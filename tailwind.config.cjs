@@ -5,7 +5,7 @@ const config = {
 		extend: {
 			colors: {
 				primary: '#000208',
-				secondary: '#202023',
+				secondary: '#101013',
 				offwhite: '#b4bcd0',
 				blue: '#0ea5e9'
 			},
