@@ -3,6 +3,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import GitHub from '@auth/core/providers/github';
 import { GITHUB_ID, GITHUB_SECRET } from '$env/static/private';
 import prisma from '$lib/db';
+import type { Handle } from '@sveltejs/kit';
 
 export const handle = SvelteKitAuth({
 	adapter: PrismaAdapter(prisma),
@@ -23,4 +24,4 @@ export const handle = SvelteKitAuth({
 			return token;
 		}
 	}
-});
+}) satisfies Handle;

@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	console.log(data);
 
 	let showModal = false;
-	let ref: HTMLInputElement | null = null;
+	let ref: HTMLInputElement;
 
 	$: if (ref) {
 		ref.focus();
@@ -43,7 +44,23 @@
 				<button on:click={() => (showModal = false)}> Close </button>
 			</div>
 
-			<form method="POST" action="?/create-home-link">
+			<form
+				method="POST"
+				action="?/create-home-link"
+				use:enhance={async ({ data: formData, cancel }) => {
+					const href = formData.get('href')?.toString();
+					if (!href) return cancel();
+
+					let userId = data.session.user?.id;
+					if (!userId) return cancel();
+
+					formData.set('userId', userId);
+					showModal = false;
+					// return async ({ result }) => {
+					// 	if (result.type === 'success') showModal = false;
+					// };
+				}}
+			>
 				<input type="text" placeholder="href" bind:this={ref} name="href" />
 				<input type="text" placeholder="alias" name="alias" />
 				<button type="submit">Create</button>
