@@ -3,7 +3,6 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	console.log(data);
 
 	let showModal = false;
 	let ref: HTMLInputElement;
@@ -24,14 +23,21 @@
 		{data.session.user?.name}
 		<button on:click={() => (showModal = true)}> Create New Home Link </button>
 	</div>
+	<h1>Links</h1>
 	{#each data.links as link}
 		<div class="flex gap-5">
-			<a
+			<button
 				on:click={() => {
 					window.open(link.href, '_blank');
-				}}>{link.alias}</a
+				}}>{link.alias}</button
 			>
 			<div>{link.href}</div>
+		</div>
+	{/each}
+	<h1>Folders</h1>
+	{#each data.folders as folder}
+		<div class="flex gap-5">
+			<div>{folder.name}</div>
 		</div>
 	{/each}
 </section>
@@ -63,6 +69,26 @@
 			>
 				<input type="text" placeholder="href" bind:this={ref} name="href" />
 				<input type="text" placeholder="alias" name="alias" />
+				<button type="submit">Create</button>
+			</form>
+
+			<hr />
+			<h2>Add Home Folder</h2>
+			<form
+				method="POST"
+				action="?/create-home-folder"
+				use:enhance={async ({ data: formData, cancel }) => {
+					let userId = data.session.user?.id;
+					if (!userId) return cancel();
+
+					formData.set('userId', userId);
+					showModal = false;
+					// return async ({ result }) => {
+					// 	if (result.type === 'success') showModal = false;
+					// };
+				}}
+			>
+				<input type="text" placeholder="name" name="name" />
 				<button type="submit">Create</button>
 			</form>
 		</div>

@@ -31,5 +31,16 @@ export const actions = {
 		});
 
 		return { success: true };
+	},
+	'create-home-folder': async ({ request }) => {
+		const data = await request.formData();
+		const name = data.get('name')!.toString();
+		const userId = data.get('userId')!.toString();
+
+		await db.folder.create({
+			data: { userId, name }
+		});
+
+		return { success: true };
 	}
 } satisfies Actions;

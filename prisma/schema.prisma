@@ -25,6 +25,7 @@ model Link {
 
 model Folder {
   uid    String @id @default(cuid())
+  name   String
   links  Link[]
   userId String
 
