@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import HomeLinks from '$lib/components/Dashboard/HomeLinks.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -17,23 +18,14 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section class="h-screen ">
+<HomeLinks links={data.links} />
+<section class="h-screen">
 	<div>
 		hello world
 		{data.session.user?.name}
 		<button on:click={() => (showModal = true)}> Create New Home Link </button>
 	</div>
 	<h1>Links</h1>
-	{#each data.links as link}
-		<div class="flex gap-5">
-			<button
-				on:click={() => {
-					window.open(link.href, '_blank');
-				}}>{link.alias}</button
-			>
-			<div>{link.href}</div>
-		</div>
-	{/each}
 	<h1>Folders</h1>
 	{#each data.folders as folder}
 		<div class="flex gap-5">

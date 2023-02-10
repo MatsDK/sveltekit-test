@@ -26,8 +26,10 @@ export const actions = {
 		const alias = data.get('alias')!.toString();
 		const userId = data.get('userId')!.toString();
 
+		const icon = `https://s2.googleusercontent.com/s2/favicons?domain=${href}&sz=256`;
+
 		await db.link.create({
-			data: { href, alias, userId }
+			data: { href, alias, userId, icon }
 		});
 
 		return { success: true };
