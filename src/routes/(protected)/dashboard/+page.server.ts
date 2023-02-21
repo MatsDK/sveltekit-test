@@ -13,7 +13,7 @@ export const load = (async ({ parent }) => {
 	return {
 		folders: await db.folder.findMany({
 			where: { userId, parentFolder_id: null },
-			include: { links: true }
+			include: { links: true, folders: true }
 		}),
 		links: await db.link.findMany({ where: { userId, folder_id: null } })
 	};
@@ -29,12 +29,26 @@ export const actions = {
 		const icon = `https://s2.googleusercontent.com/s2/favicons?domain=${href}&sz=256`;
 
 		await db.link.create({
-			data: { href, alias, userId, icon }
+			data: { href, alias, userId, icon, home: true }
 		});
 
 		return { success: true };
 	},
-	'create-home-folder': async ({ request }) => {
+	'create-link': async ({ request }) => {
+		const data = await request.formData();
+		const href = data.get('href')!.toString();
+		const alias = data.get('alias')!.toString();
+		const userId = data.get('userId')!.toString();
+
+		const icon = `https://s2.googleusercontent.com/s2/favicons?domain=${href}&sz=256`;
+
+		await db.link.create({
+			data: { href, alias, userId, icon, home: false }
+		});
+
+		return { success: true };
+	},
+	'create-folder': async ({ request }) => {
 		const data = await request.formData();
 		const name = data.get('name')!.toString();
 		const userId = data.get('userId')!.toString();

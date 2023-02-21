@@ -40,8 +40,8 @@
 			<button type="submit">Create</button>
 		</form>
 
-		<hr />
-		<h2>Add Home Folder</h2>
+		<!-- <hr /> -->
+		<!-- <h2>Add Home Folder</h2>
 		<form
 			method="POST"
 			action="?/create-home-folder"
@@ -55,6 +55,6 @@
 		>
 			<input type="text" placeholder="name" name="name" />
 			<button type="submit">Create</button>
-		</form>
+		</form> -->
 	</div>
 </div>

@@ -10,11 +10,12 @@ datasource db {
 }
 
 model Link {
-  uid    String @id @default(cuid())
+  uid    String  @id @default(cuid())
   alias  String
   href   String
   userId String
   icon   String
+  home   Boolean
 
   Folder    Folder? @relation(fields: [folder_id], references: [uid])
   folder_id String?
@@ -30,7 +31,7 @@ model Folder {
   links  Link[]
   userId String
 
-  nestedFolders   Folder[] @relation("Nested_Folders")
+  folders         Folder[] @relation("Nested_Folders")
   parentFolder    Folder?  @relation("Nested_Folders", fields: [parentFolder_id], references: [uid], onDelete: NoAction, onUpdate: NoAction)
   parentFolder_id String?
 
@@ -38,13 +39,6 @@ model Folder {
 
   @@index([parentFolder_id])
   @@index([userId])
-}
-
-model Todo {
-  uid        String   @id @default(cuid())
-  created_at DateTime
-  text       String
-  done       Boolean
 }
 
 model Account {
