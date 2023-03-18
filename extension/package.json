@@ -1,0 +1,23 @@
+{
+  "name": "extension",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "build-extension": "pnpm build && cp manifest.json dist/"
+  },
+  "dependencies": {
+    "postcss": "^8.4.21",
+    "postcss-load-config": "^4.0.1",
+    "preact": "^10.13.0",
+    "tailwindcss": "^3.2.7"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.5.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0"
+  }
+}
