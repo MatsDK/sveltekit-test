@@ -23,9 +23,28 @@ export function App() {
 		})
 	}
 
+	const tryLogin = async () => {
+		chrome.runtime.sendMessage(
+			{ action: 'AUTH_CHECK' },
+			(session) => {
+				console.log(session);
+				// if (session) {
+				// 	console.log("session");
+				// 	//user is logged in
+				// } else {
+				// 	//no session means user not logged in
+				// 	chrome.tabs.create({
+				// 		url: '<link to your login page>'
+				// 	});
+				// }
+			}
+		);
+	}
+
 	return (
 		<div class="w-screen h-screen border border-border-color bg-primary">
 			<button onClick={saveCurrentTab}>Save current tab</button>
+			<button onClick={tryLogin}>Login</button>
 		</div>
 	)
 }

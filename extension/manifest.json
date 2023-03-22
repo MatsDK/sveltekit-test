@@ -3,8 +3,14 @@
 	"name": "Test extension",
 	"description": "Save your browser tabs",
 	"version": "0.0.1",
-	"permissions": ["tabs"],
+	"permissions": [
+		"tabs",
+		"runtime"
+	],
 	"action": {
 		"default_popup": "index.html"
+	},
+	"background": {
+		"service_worker": "background.js"
 	}
 }
