@@ -7,7 +7,7 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-		"build-extension": "pnpm build && cp manifest.json dist/ && cp background.js dist/",
+		"build-extension": "pnpm build && cp manifest.json dist/ && cp background.js dist/ && cp content_script.js dist/",
 		"format": "prettier --plugin-search-dir . --write .",
 		"lint": "run-p lint:*",
 		"lint:format": "prettier --plugin-search-dir . --check .",
