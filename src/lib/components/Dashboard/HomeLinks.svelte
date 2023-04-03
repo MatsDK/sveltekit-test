@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Link } from '@prisma/client';
 	import Icon from '@iconify/svelte';
-	import NewHomeLinkModal from './NewHomeLinkModal.svelte';
+	import NewLinkModal from './NewLinkModal.svelte';
 
 	export let links: Link[];
 	export let userId: string | undefined;
@@ -9,9 +9,6 @@
 </script>
 
 <div class=" absolute w-full flex items-center justify-center pointer-events-none">
-	<!-- <div
-		class="bg-secondary border border-border-color w-full mx-10 max-w-max-page-width my-8 rounded-md text-white flex justify-center gap-4 pointer-events-auto p-3"
-	> -->
 	<div
 		class="border-b border-border-color  max-w-max-page-width px-5 rounded-md text-white gap-4 pointer-events-auto flex w-full overflow-x-auto py-4 justify-center"
 	>
@@ -39,5 +36,5 @@
 </div>
 
 {#if showModal && userId}
-	<NewHomeLinkModal {userId} bind:showModal />
+	<NewLinkModal {userId} home bind:showModal />
 {/if}
