@@ -3,7 +3,9 @@
 	import { trpc } from '$lib/trpc/client';
 
 	export let showModal: boolean;
+	export let hideCreateFolder = false;
 	export let home = false;
+	export let folderId: string | undefined = undefined;
 
 	let ref: HTMLInputElement;
 
@@ -20,7 +22,8 @@
 		const res = await trpc($page).tabs.create.mutate({
 			alias,
 			href,
-			home
+			home,
+			folderId
 		});
 		console.log(res);
 	};
@@ -41,8 +44,11 @@
 >
 	<div class="w-96 h-64 bg-secondary flex flex-col">
 		<div class="flex flex-row justify-between">
-			<h2>Add Link</h2>
-			<button on:click={() => (showModal = false)}> Close </button>
+			<div>
+				<h2>Add Link</h2>
+				{#if folderId}<p>Selected folder: {folderId}</p>{/if}
+			</div>
+			<button on:click={() => (showModal = false)}>Close</button>
 		</div>
 
 		<form on:submit|preventDefault={createTab}>
@@ -51,7 +57,7 @@
 			<button type="submit">Create</button>
 		</form>
 
-		{#if !home}
+		{#if !hideCreateFolder}
 			<hr />
 			<h2>Add Folder</h2>
 			<form on:submit|preventDefault={createFolder}>

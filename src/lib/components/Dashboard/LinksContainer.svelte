@@ -1,14 +1,19 @@
 <script lang="ts">
+	import { trpc } from '$lib/trpc/client';
 	import Icon from '@iconify/svelte';
 	import type { Folder, Link } from '@prisma/client';
+	import NewLinkModal from './NewLinkModal.svelte';
+	import { page } from '$app/stores';
 
 	export let links: Link[] = [];
 	export let folders: Folder[] = [];
 	export let title: string;
 	export let isDefaultFolder = false;
+	export let folderId: string | undefined = undefined;
 
 	let isCollapsed = false;
 	let isDropdownOpen = false;
+	let showNewLinkModal = false;
 
 	const clickOutside = (element: HTMLElement, callbackFunction: () => void) => {
 		const onClick = (event: Event) => {
@@ -31,6 +36,23 @@
 				document.body.removeEventListener('click', onClick);
 			}
 		};
+	};
+
+	const clearFolder = async () => {
+		// TODO: ask if user is sure he wants to delete everything in folder
+
+		const res = await trpc($page).folders.clear.mutate({ folderId });
+		console.log(res);
+	};
+
+	const renameFolder = async () => {
+		if (!folderId) return;
+
+		const newName = prompt('Enter a new name')?.trim();
+		if (!newName) return alert('invalid name');
+
+		const res = await trpc($page).folders.rename.mutate({ folderId, newName });
+		console.log(res);
 	};
 </script>
 
@@ -69,12 +91,13 @@
 						on:click={() => {
 							// isCollapsed = false;
 							isDropdownOpen = false;
+							showNewLinkModal = true;
 						}}
 					>
 						Add Tab
 					</li>
-					{#if !isDefaultFolder}<li class="">Rename Folder</li>{/if}
-					<li class="">Clear Folder</li>
+					{#if !isDefaultFolder}<li class="" on:click={renameFolder}>Rename Folder</li>{/if}
+					<li class="" on:click={clearFolder}>Clear Folder</li>
 					{#if !isDefaultFolder}<li class="">Delete Folder</li>{/if}
 				</ul>
 			</div>
@@ -86,7 +109,7 @@
 				class="flex items-center overflow-hidden gap-4 px-5 h-7 hover:bg-secondary transition-colors "
 				title={folder.name}
 			>
-				<span class="whitespace-nowrap overflow-ellipsis overflow-hidden">{folder.name}</span>
+				<span class="whitespace-nowrap overflow-ellipsis overflow-hidden ">{folder.name}</span>
 			</div>
 		{/each}
 		{#each links as link}
@@ -98,8 +121,8 @@
 					window.open(link.href, '_blank');
 				}}
 			>
-				<div class="w-6 h-6 rounded-lg overflow-hidden">
-					<img class="w-6 h-6" src={link.icon} alt={link.alias} />
+				<div class="w-6 h-6 rounded-lg overflow-hidden ">
+					<img class="w-6 h-6 object-contain" src={link.icon} alt={link.alias} />
 				</div>
 				<span class="group-hover:underline whitespace-nowrap overflow-ellipsis overflow-hidden"
 					>{link.alias}</span
@@ -108,3 +131,7 @@
 		{/each}
 	{/if}
 </div>
+
+{#if showNewLinkModal}
+	<NewLinkModal hideCreateFolder bind:showModal={showNewLinkModal} {folderId} />
+{/if}

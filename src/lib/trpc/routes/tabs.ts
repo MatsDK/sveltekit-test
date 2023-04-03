@@ -9,14 +9,16 @@ export const tabRouter = t.router({
 				href: z.string().url(),
 				alias: z.string(),
 				home: z.boolean().default(false),
-				icon: z.string().optional()
+				icon: z.string().optional(),
+				folderId: z.string().optional()
 			})
 		)
-		.mutation(async ({ input: { href, alias, home, icon }, ctx: { userId } }) => {
+		.mutation(async ({ input: { href, alias, home, icon, folderId }, ctx: { userId } }) => {
+			if (!userId) return;
 			icon = icon ?? `https://s2.googleusercontent.com/s2/favicons?domain=${href}&sz=256`;
 
 			await db.link.create({
-				data: { href, alias, userId, icon, home }
+				data: { href, alias, userId, icon, home, folder_id: folderId }
 			});
 
 			return { success: true };

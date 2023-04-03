@@ -4,11 +4,12 @@
 	import NewLinkModal from './NewLinkModal.svelte';
 
 	export let links: Link[];
-	export let userId: string | undefined;
 	let showModal = false;
 </script>
 
-<div class=" absolute w-full flex items-center justify-center pointer-events-none">
+<div
+	class=" absolute w-full flex items-center justify-center pointer-events-none z-10 backdrop-blur-md backdrop-saturate-150"
+>
 	<div
 		class="border-b border-border-color  max-w-max-page-width px-5 rounded-md text-white gap-4 pointer-events-auto flex w-full overflow-x-auto py-4 justify-center"
 	>
@@ -35,6 +36,6 @@
 	</div>
 </div>
 
-{#if showModal && userId}
-	<NewLinkModal {userId} home bind:showModal />
+{#if showModal}
+	<NewLinkModal home hideCreateFolder bind:showModal />
 {/if}
