@@ -1,5 +1,5 @@
 module.exports = {
-	content: ['./src/**/*.{js,ts,jsx,tsx}'],
+	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
 		extend: {
 			colors: {
@@ -11,6 +11,5 @@ module.exports = {
 			},
 		},
 	},
-
 	plugins: [],
 }
