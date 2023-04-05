@@ -3,6 +3,11 @@ import { authProcedure, t } from '$lib/trpc/t';
 import z from 'zod';
 
 export const folderRouter = t.router({
+	getAll: authProcedure.query(async ({ ctx: { userId } }) => {
+		if (!userId) return;
+
+		return db.folder.findMany({ where: { userId } });
+	}),
 	create: authProcedure
 		.input(
 			z.object({
@@ -50,6 +55,21 @@ export const folderRouter = t.router({
 			await db.folder.update({
 				where: { uid: folderId },
 				data: { name: newName }
+			});
+
+			return { success: true };
+		}),
+	delete: authProcedure
+		.input(z.object({ folderId: z.string() }))
+		.mutation(async ({ input: { folderId }, ctx: { userId } }) => {
+			if (!userId) return;
+
+			await db.link.deleteMany({
+				where: { userId, folder_id: folderId }
+			});
+
+			await db.folder.delete({
+				where: { uid: folderId }
 			});
 
 			return { success: true };

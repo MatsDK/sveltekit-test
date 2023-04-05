@@ -54,6 +54,13 @@
 		const res = await trpc($page).folders.rename.mutate({ folderId, newName });
 		console.log(res);
 	};
+
+	const deleteFolder = async () => {
+		if (!folderId) return;
+
+		const res = await trpc($page).folders.delete.mutate({ folderId });
+		console.log(res);
+	};
 </script>
 
 <div class="w-80 shrink-0 border border-border-color rounded-md h-fit">
@@ -89,7 +96,6 @@
 				>
 					<li
 						on:click={() => {
-							// isCollapsed = false;
 							isDropdownOpen = false;
 							showNewLinkModal = true;
 						}}
@@ -98,7 +104,7 @@
 					</li>
 					{#if !isDefaultFolder}<li class="" on:click={renameFolder}>Rename Folder</li>{/if}
 					<li class="" on:click={clearFolder}>Clear Folder</li>
-					{#if !isDefaultFolder}<li class="">Delete Folder</li>{/if}
+					{#if !isDefaultFolder}<li class="" on:click={deleteFolder}>Delete Folder</li>{/if}
 				</ul>
 			</div>
 		{/if}

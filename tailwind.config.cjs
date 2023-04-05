@@ -8,7 +8,9 @@ const config = {
 				secondary: '#101013',
 				offwhite: '#b4bcd0',
 				blue: '#0ea5e9',
-				'border-color': '#18181b'
+				'border-color': '#18181b',
+				'gray-text': '#73828c',
+				'light-gray-text': '#9facb5'
 			},
 			maxWidth: {
 				'max-page-width': '1200px'
