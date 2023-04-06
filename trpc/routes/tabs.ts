@@ -1,5 +1,5 @@
-import db from '$lib/db';
-import { authProcedure, t } from '$lib/trpc/t';
+import db from '../../src/lib/db';
+import { authProcedure, t } from '../t';
 import z from 'zod';
 
 export const tabRouter = t.router({

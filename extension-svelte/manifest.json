@@ -3,13 +3,8 @@
 	"name": "Test extension",
 	"description": "Save your browser tabs",
 	"version": "0.0.1",
-	"permissions": [
-		"tabs",
-		"cookies"
-	],
-	"host_permissions": [
-		"http://127.0.0.1:5173/"
-	],
+	"permissions": ["tabs", "cookies"],
+	"host_permissions": ["http://127.0.0.1:5173/"],
 	"action": {
 		"default_popup": "index.html"
 	},
@@ -18,12 +13,8 @@
 	},
 	"content_scripts": [
 		{
-			"js": [
-				"content_script.js"
-			],
-			"matches": [
-				"http://127.0.0.1:5173/*"
-			]
+			"js": ["content_script.js"],
+			"matches": ["http://127.0.0.1:5173/*"]
 		}
 	]
 }

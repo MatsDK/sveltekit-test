@@ -5,9 +5,9 @@ import { SvelteKitAuth } from '@auth/sveltekit';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
-import { createContext } from '$lib/trpc/context';
+import { createContext } from '../trpc/context';
 import { createTRPCHandle } from 'trpc-sveltekit';
-import { router } from '$lib/trpc/router';
+import { router } from '../trpc/router';
 
 const authHandle = SvelteKitAuth({
 	adapter: PrismaAdapter(prisma),

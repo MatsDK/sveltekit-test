@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
+	import { session } from './lib/store'
+	import { trpc } from './lib/trpc'
+	import { serverUrl } from './lib/utils'
 
-	const CREATE_TAB_POST_URL = 'http://127.0.0.1:5173/api/create'
-
-	let session: Session | null
+	const CREATE_TAB_POST_URL = `${serverUrl}/api/create`
 
 	onMount(() => {
 		checkSession()
@@ -14,19 +15,6 @@
 		const [tab] = await chrome.tabs.query(queryOptions)
 		return tab
 	}
-
-	type Session = {
-		expires: string
-		user: User
-	}
-
-	type User = {
-		email: string
-		id: string
-		name: string
-		image: string
-	}
-
 	const saveCurrentTab = async () => {
 		const currentTab = await getCurrentTab()
 		if (!currentTab) return
@@ -45,18 +33,18 @@
 
 	const checkSession = async () => {
 		chrome.runtime.sendMessage({ action: 'AUTH_CHECK' }, (s) => {
-			session = s
+			session.set(s)
 		})
 	}
 
 	const signIn = async () => {
-		chrome.tabs.create({ url: 'http://127.0.0.1:5173/' })
+		chrome.tabs.create({ url: serverUrl })
 	}
 
 	const signOut = async () => {
 		await chrome.cookies.remove({
 			name: 'next-auth.session-token',
-			url: 'http://127.0.0.1:5173/',
+			url: serverUrl,
 		})
 		checkSession()
 	}
@@ -64,10 +52,10 @@
 
 <main class="w-screen h-screen border border-border-color bg-primary">
 	<button on:click={saveCurrentTab} class="">Save current tab</button>
-	{#if !!session}
+	{#if !!$session}
 		<div>
-			<h1>Welcome {session.user.name}</h1>
-			<img src={session.user.image} alt="profile" width={25} height={25} />
+			<h1>Welcome {$session.user.name}</h1>
+			<img src={$session.user.image} alt="profile" width={25} height={25} />
 			<button on:click={signOut}>Sign out</button>
 		</div>
 	{:else}
@@ -75,4 +63,12 @@
 			<button on:click={signIn}>Sign in</button>
 		</div>
 	{/if}
+
+	{#await trpc.folders.getAll.query() then folders}
+		{#each folders as folder}
+			<div>
+				Folder: {folder.name}
+			</div>
+		{/each}
+	{/await}
 </main>
