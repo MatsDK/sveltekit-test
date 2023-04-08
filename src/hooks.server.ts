@@ -3,7 +3,6 @@ import prisma from '$lib/db';
 import GitHub from '@auth/core/providers/github';
 import { SvelteKitAuth } from '@auth/sveltekit';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { createContext } from '../trpc/context';
 import { createTRPCHandle } from 'trpc-sveltekit';
@@ -28,8 +27,8 @@ const authHandle = SvelteKitAuth({
 			return token;
 		}
 	}
-}) satisfies Handle;
+});
 
-export const trpcHandle = createTRPCHandle({ router, createContext }) satisfies Handle;
+const trpcHandle = createTRPCHandle({ router, createContext });
 
 export const handle = sequence(authHandle, trpcHandle);

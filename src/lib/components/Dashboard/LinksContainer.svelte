@@ -4,6 +4,7 @@
 	import type { Folder, Link } from '@prisma/client';
 	import NewLinkModal from './NewLinkModal.svelte';
 	import { page } from '$app/stores';
+	import Tab from './Tab.svelte';
 
 	export let links: Link[] = [];
 	export let folders: Folder[] = [];
@@ -119,21 +120,7 @@
 			</div>
 		{/each}
 		{#each links as link}
-			<a
-				href={link.href}
-				class="flex items-center overflow-hidden gap-4 px-5 h-7 hover:bg-secondary transition-colors group"
-				title={link.alias}
-				on:click|preventDefault={() => {
-					window.open(link.href, '_blank');
-				}}
-			>
-				<div class="w-6 h-6 rounded-lg overflow-hidden ">
-					<img class="w-6 h-6 object-contain" src={link.icon} alt={link.alias} />
-				</div>
-				<span class="group-hover:underline whitespace-nowrap overflow-ellipsis overflow-hidden"
-					>{link.alias}</span
-				>
-			</a>
+			<Tab {link} />
 		{/each}
 	{/if}
 </div>
