@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { trpc } from '$lib/trpc/client';
 	import Icon from '@iconify/svelte';
 	import type { Folder, Link } from '@prisma/client';
+	import { fade } from 'svelte/transition';
 	import NewLinkModal from './NewLinkModal.svelte';
-	import { page } from '$app/stores';
+	import { contextMenu } from './store';
 	import Tab from './Tab.svelte';
 
 	export let links: Link[] = [];
@@ -18,11 +20,7 @@
 
 	const clickOutside = (element: HTMLElement, callbackFunction: () => void) => {
 		const onClick = (event: Event) => {
-			if (
-				isDropdownOpen &&
-				event.target instanceof HTMLElement &&
-				!element.contains(event.target)
-			) {
+			if (event.target instanceof HTMLElement && !element.contains(event.target)) {
 				callbackFunction();
 			}
 		};
@@ -60,6 +58,17 @@
 		if (!folderId) return;
 
 		const res = await trpc($page).folders.delete.mutate({ folderId });
+		console.log(res);
+	};
+
+	const hideContextMenu = () => {
+		contextMenu.set({ x: 0, y: 0, showMenu: false, tab: null });
+	};
+
+	const deleteTab = async () => {
+		if (!folderId || !$contextMenu.tab) return;
+
+		const res = await trpc($page).tabs.delete.mutate({ tabId: $contextMenu.tab.uid });
 		console.log(res);
 	};
 </script>
@@ -127,4 +136,27 @@
 
 {#if showNewLinkModal}
 	<NewLinkModal hideCreateFolder bind:showModal={showNewLinkModal} {folderId} />
+{/if}
+
+{#if $contextMenu.showMenu && $contextMenu.tab}
+	{@const { tab, x, y } = $contextMenu}
+	<div
+		transition:fade={{ duration: 100 }}
+		use:clickOutside={() => hideContextMenu()}
+		style="top: {y}px; left: {x}px;"
+		class="absolute border border-border-color bg-primary rounded-md py-1 shadow-black shadow-2xl w-52"
+	>
+		<ul
+			class="[&>li]:text-gray-400 [&>li]:px-4 [&>li]:cursor-pointer  [&>li:hover]:bg-primary [&>*]:transition-colors [&>*:hover]:text-white"
+		>
+			<li
+				on:click={() => {
+					window.open(tab.href, '_blank');
+				}}
+			>
+				Open tab
+			</li>
+			<li on:click={deleteTab}>Delete tab</li>
+		</ul>
+	</div>
 {/if}

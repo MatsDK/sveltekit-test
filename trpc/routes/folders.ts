@@ -69,7 +69,7 @@ export const folderRouter = t.router({
 			});
 
 			await db.folder.delete({
-				where: { uid: folderId }
+				where: { uid: folderId, }
 			});
 
 			return { success: true };

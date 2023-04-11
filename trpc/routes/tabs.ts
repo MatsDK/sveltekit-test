@@ -22,5 +22,16 @@ export const tabRouter = t.router({
 			});
 
 			return { success: true };
+		}),
+	delete: authProcedure
+		.input(z.object({ tabId: z.string() }))
+		.mutation(async ({ input: { tabId }, ctx: { userId } }) => {
+			if (!userId) return
+
+			await db.link.delete({
+				where: { uid: tabId }
+			})
+
+			return { success: true }
 		})
 });

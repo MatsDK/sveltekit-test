@@ -1,27 +1,18 @@
 <script lang="ts">
 	import type { Link } from '@prisma/client';
-	import { fade } from 'svelte/transition';
+	import { contextMenu } from './store';
 
 	export let link: Link;
 
-	let showMenu = false;
-	let pos = { x: 0, y: 0 };
+	let { showMenu, tab, ...pos } = $contextMenu;
 
 	const onRightClick = async (e: MouseEvent) => {
 		if (showMenu) {
-			showMenu = false;
+			contextMenu.set({ ...pos, showMenu: false, tab });
 			await new Promise((res) => setTimeout(res, 100));
 		}
 
-		pos = { x: e.clientX, y: e.clientY };
-		showMenu = true;
-	};
-
-	let menuEl: HTMLDivElement;
-	const onPageClick = (e: Event) => {
-		if (e.target === menuEl || (e.target instanceof HTMLElement && menuEl.contains(e.target)))
-			return;
-		showMenu = false;
+		contextMenu.set({ x: e.clientX, y: e.clientY, showMenu: true, tab: link });
 	};
 </script>
 
@@ -41,13 +32,3 @@
 		>{link.alias}</span
 	>
 </a>
-
-<svelte:body on:click={onPageClick} />
-
-{#if showMenu}
-	<div
-		transition:fade={{ duration: 100 }}
-		bind:this={menuEl}
-		style="top: {pos.y}px; left: {pos.x}px;"
-	/>
-{/if}
