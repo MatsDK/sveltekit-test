@@ -10,7 +10,8 @@
 		"sourceMap": false,
 		"isolatedModules": true,
 		"noEmit": true,
-		"strict": true
+		"strict": true,
+		"noUncheckedIndexedAccess": true
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
 	"exclude": ["node_modules", "dist"],

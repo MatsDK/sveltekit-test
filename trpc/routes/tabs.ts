@@ -3,6 +3,17 @@ import { authProcedure, t } from '../t';
 import z from 'zod';
 
 export const tabRouter = t.router({
+	getHomeLinks: authProcedure.query(async ({ ctx: { userId } }) => {
+		if (!userId) return;
+
+		return {
+			folders: await db.folder.findMany({
+				where: { userId, parentFolder_id: null },
+				include: { links: true, folders: true }
+			}),
+			links: await db.link.findMany({ where: { userId, folder_id: null } })
+		};
+	}),
 	create: authProcedure
 		.input(
 			z.object({
@@ -26,12 +37,21 @@ export const tabRouter = t.router({
 	delete: authProcedure
 		.input(z.object({ tabId: z.string() }))
 		.mutation(async ({ input: { tabId }, ctx: { userId } }) => {
-			if (!userId) return
+			if (!userId) return;
 
 			await db.link.delete({
 				where: { uid: tabId }
-			})
+			});
 
-			return { success: true }
+			return { success: true };
+		}),
+	makeHome: authProcedure
+		.input(z.object({ tabId: z.string() }))
+		.mutation(async ({ input: { tabId }, ctx: { userId } }) => {
+			if (!userId) return;
+
+			await db.link.update({ where: { uid: tabId }, data: { home: true } });
+
+			return { success: true };
 		})
 });

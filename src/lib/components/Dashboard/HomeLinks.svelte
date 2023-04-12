@@ -11,7 +11,7 @@
 	class=" absolute w-full flex items-center justify-center pointer-events-none z-10 backdrop-blur-md backdrop-saturate-150"
 >
 	<div
-		class="border-b border-border-color  max-w-max-page-width px-5 rounded-md text-white gap-4 pointer-events-auto flex w-full overflow-x-auto py-4 justify-center"
+		class="border-b border-border-color max-w-max-page-width px-5 rounded-md text-white gap-4 pointer-events-auto flex w-full overflow-x-auto py-4 justify-center"
 	>
 		{#each links.filter((link) => link.home) as link}
 			<a

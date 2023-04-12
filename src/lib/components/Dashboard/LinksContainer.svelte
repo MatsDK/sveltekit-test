@@ -71,6 +71,13 @@
 		const res = await trpc($page).tabs.delete.mutate({ tabId: $contextMenu.tab.uid });
 		console.log(res);
 	};
+
+	const makeHomeTab = async () => {
+		if (!folderId || !$contextMenu.tab) return;
+
+		const res = await trpc($page).tabs.makeHome.mutate({ tabId: $contextMenu.tab.uid });
+		console.log(res);
+	};
 </script>
 
 <div class="w-80 shrink-0 border border-border-color rounded-md h-fit">
@@ -147,7 +154,7 @@
 		class="absolute border border-border-color bg-primary rounded-md py-1 shadow-black shadow-2xl w-52"
 	>
 		<ul
-			class="[&>li]:text-gray-400 [&>li]:px-4 [&>li]:cursor-pointer  [&>li:hover]:bg-primary [&>*]:transition-colors [&>*:hover]:text-white"
+			class="[&>li]:text-gray-400 [&>li]:px-4 [&>li]:cursor-pointer [&>li:hover]:bg-primary [&>*]:transition-colors [&>*:hover]:text-white"
 		>
 			<li
 				on:click={() => {
@@ -157,6 +164,7 @@
 				Open tab
 			</li>
 			<li on:click={deleteTab}>Delete tab</li>
+			<li on:click={makeHomeTab}>Move to home row</li>
 		</ul>
 	</div>
 {/if}
