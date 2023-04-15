@@ -16,5 +16,18 @@
 			"js": ["content_script.js"],
 			"matches": ["http://127.0.0.1:5173/*"]
 		}
-	]
+	],
+	"icons": {
+		"16": "16.png",
+		"32": "32.png",
+		"48": "48.png",
+		"128": "128.png"
+	},
+	"commands": {
+		"_execute_action": {
+			"suggested_key": {
+				"default": "Alt+Shift+K"
+			}
+		}
+	}
 }
