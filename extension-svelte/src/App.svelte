@@ -5,15 +5,17 @@
 	import { session, windowState } from './lib/store'
 </script>
 
-<main class="w-screen h-screen border border-border-color bg-primary">
+<main class="w-screen h-screen border border-border-color bg-primary overflow-hidden">
 	<Header />
-	{#if $session?.user}
-		{#if $windowState === 'home'}
-			<Home />
-		{:else if $windowState === 'save-to'}
-			<SaveTabTo />
-		{:else if $windowState === 'profile'}
-			<div>Profile</div>
+	<section class="pt-header-height overflow-auto h-screen scrollbar-hide">
+		{#if $session?.user}
+			{#if $windowState === 'home'}
+				<Home />
+			{:else if $windowState === 'save-to'}
+				<SaveTabTo />
+			{:else if $windowState === 'profile'}
+				<div>Profile</div>
+			{/if}
 		{/if}
-	{/if}
+	</section>
 </main>

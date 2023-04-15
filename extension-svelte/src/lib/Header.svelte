@@ -28,7 +28,9 @@
 </script>
 
 {#if !!$session}
-	<div class="border-b border-border-color flex items-center justify-between px-2 py-1">
+	<header
+		class="border-b border-border-color flex items-center justify-between px-2 py-1 fixed top-0 z-10 h-header-height w-full backdrop-blur-md backdrop-saturate-150"
+	>
 		<div class="flex items-center gap-2">
 			{#if $windowState !== 'home'}
 				<button on:click={() => windowState.set('home')}><Back /></button>
@@ -47,7 +49,7 @@
 		>
 			<img src={$session.user.image} alt="profile" width={28} height={28} />
 		</button>
-	</div>
+	</header>
 {:else}
 	<div>
 		<button on:click={signIn}>Sign in</button>

@@ -8,6 +8,11 @@ module.exports = {
 				offwhite: '#b4bcd0',
 				blue: '#0ea5e9',
 				'border-color': '#18181b',
+				'gray-text': '#73828c',
+				'light-gray-text': '#9facb5',
+			},
+			spacing: {
+				'header-height': '37px',
 			},
 		},
 	},
