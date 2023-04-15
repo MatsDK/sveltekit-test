@@ -80,14 +80,14 @@
 	};
 </script>
 
-<div class="w-80 shrink-0 border border-border-color rounded-md h-fit">
+<div class="h-fit w-80 shrink-0 rounded-md border border-border-color">
 	<div
-		class="group h-10 border-b border-border-color flex items-center justify-between bg-secondary relative"
+		class="group relative flex h-10 items-center justify-between border-b border-border-color bg-secondary"
 	>
 		<button title="collapse" class="px-2" on:click={() => (isCollapsed = !isCollapsed)}>
 			<Icon
 				icon="material-symbols:keyboard-arrow-down"
-				class="text-xl opacity-0 group-hover:opacity-100 transition-opacity {isCollapsed
+				class="text-xl opacity-0 transition-opacity group-hover:opacity-100 {isCollapsed
 					? 'rotate-180'
 					: 'rotate-0'}"
 			/>
@@ -100,16 +100,16 @@
 		>
 			<Icon
 				icon="mdi:dots-vertical"
-				class="text-xl opacity-0 group-hover:opacity-100 transition-opacity"
+				class="text-xl opacity-0 transition-opacity group-hover:opacity-100"
 			/>
 		</button>
 		{#if isDropdownOpen}
 			<div
 				use:clickOutside={() => (isDropdownOpen = false)}
-				class="absolute right-2 top-12 border border-border-color bg-secondary rounded-md py-2 shadow-black shadow-2xl"
+				class="absolute right-2 top-12 rounded-md border border-border-color bg-secondary py-2 shadow-2xl shadow-black"
 			>
 				<ul
-					class="[&>li]:text-gray-400 [&>li]:px-4 [&>li]:cursor-pointer  [&>li:hover]:bg-primary [&>*]:transition-colors [&>*:hover]:text-white"
+					class="[&>li]:cursor-pointer [&>li]:px-4 [&>li]:text-gray-400  [&>li:hover]:bg-primary [&>*]:transition-colors [&>*:hover]:text-white"
 				>
 					<li
 						on:click={() => {
@@ -129,10 +129,10 @@
 	{#if !isCollapsed}
 		{#each folders as folder}
 			<div
-				class="flex items-center overflow-hidden gap-4 px-5 h-7 hover:bg-secondary transition-colors "
+				class="flex h-7 items-center gap-4 overflow-hidden px-5 transition-colors hover:bg-secondary "
 				title={folder.name}
 			>
-				<span class="whitespace-nowrap overflow-ellipsis overflow-hidden ">{folder.name}</span>
+				<span class="overflow-hidden overflow-ellipsis whitespace-nowrap ">{folder.name}</span>
 			</div>
 		{/each}
 		{#each links as link}
@@ -151,10 +151,10 @@
 		transition:fade={{ duration: 100 }}
 		use:clickOutside={() => hideContextMenu()}
 		style="top: {y}px; left: {x}px;"
-		class="absolute border border-border-color bg-primary rounded-md py-1 shadow-black shadow-2xl w-52"
+		class="absolute z-50 w-52 rounded-md border border-border-color bg-primary py-1 shadow-lg shadow-black"
 	>
 		<ul
-			class="[&>li]:text-gray-400 [&>li]:px-4 [&>li]:cursor-pointer [&>li:hover]:bg-primary [&>*]:transition-colors [&>*:hover]:text-white"
+			class="[&>li]:cursor-pointer [&>li]:px-4 [&>li]:text-gray-400 [&>li:hover]:bg-primary [&>*]:transition-colors [&>*:hover]:text-white"
 		>
 			<li
 				on:click={() => {
@@ -164,7 +164,9 @@
 				Open tab
 			</li>
 			<li on:click={deleteTab}>Delete tab</li>
-			<li on:click={makeHomeTab}>Move to home row</li>
+			{#if !tab.home}
+				<li on:click={makeHomeTab}>Move to home row</li>
+			{/if}
 		</ul>
 	</div>
 {/if}

@@ -9,9 +9,17 @@ export const tabRouter = t.router({
 		return {
 			folders: await db.folder.findMany({
 				where: { userId, parentFolder_id: null },
-				include: { links: true, folders: true }
+				include: {
+					links: { orderBy: { createdAt: 'desc' } },
+					folders: true
+				}
 			}),
-			links: await db.link.findMany({ where: { userId, folder_id: null } })
+			links: await db.link.findMany({
+				where: { userId, folder_id: null },
+				orderBy: {
+					createdAt: 'desc'
+				}
+			})
 		};
 	}),
 	create: authProcedure

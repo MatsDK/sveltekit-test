@@ -16,11 +16,11 @@
 <HomeLinks links={data.links} />
 <section class="">
 	<div>
-		<button class="h-header-height my-2 absolute z-10 top-0" on:click={() => (showModal = true)}>
+		<button class="absolute top-0 z-10 my-2 h-header-height" on:click={() => (showModal = true)}>
 			New
 		</button>
 	</div>
-	<div class="flex px-32 py-10 gap-10 flex-wrap justify-center mt-header-height">
+	<div class="mt-header-height flex flex-wrap justify-center gap-10 px-32 py-10">
 		<LinksContainer
 			isDefaultFolder
 			title="Recently added"

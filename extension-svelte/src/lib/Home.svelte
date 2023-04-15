@@ -1,11 +1,7 @@
 <script>
+	import { windowState } from './store'
 	import { trpc } from './trpc'
-
-	const getCurrentTab = async () => {
-		const queryOptions = { active: true, lastFocusedWindow: true }
-		const [tab] = await chrome.tabs.query(queryOptions)
-		return tab
-	}
+	import { getCurrentTab } from './utils'
 
 	const saveCurrentTab = async () => {
 		const currentTab = await getCurrentTab()
@@ -28,7 +24,7 @@
 	>
 	<button
 		class="bg-secondary rounded-md px-2 py-1 font-semibold text-neutral-300 hover:text-white transition-colors"
-		>Save current window</button
+		on:click={() => windowState.set('save-to')}>Save tab to</button
 	>
 	<button
 		class="bg-secondary rounded-md px-2 py-1 font-semibold text-neutral-400 hover:text-white transition-colors"

@@ -1,5 +1,5 @@
 <button
-	class=" px-4 rounded-full h-8 bg-main-gradient hover:shadow-[0_0_10px_6px_#000] hover:shadow-blue/25 transition-shadow"
+	class=" h-8 rounded-full bg-main-gradient px-4 transition-shadow hover:shadow-[0_0_10px_6px_#000] hover:shadow-blue/25"
 >
 	<slot />
 </button>

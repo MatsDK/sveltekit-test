@@ -13,3 +13,7 @@ export type User = {
 	name: string
 	image: string
 }
+
+type Windows = 'home' | 'save-to' | 'profile'
+
+export const windowState = writable<Windows>('home')

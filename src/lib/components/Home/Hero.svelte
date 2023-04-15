@@ -3,32 +3,32 @@
 </script>
 
 <section class="px-5 pt-header-height ">
-	<div class="max-w-max-page-width mx-auto flex flex-col justify-center">
+	<div class="mx-auto flex max-w-max-page-width flex-col justify-center">
 		<h1
-			class=" text-5xl md:text-8xl font-bold text-center mb-10 mt-20 md:mt-28 opacity-0 animate-fade-in"
+			class=" mb-10 mt-20 animate-fade-in text-center text-5xl font-bold opacity-0 md:mt-28 md:text-8xl"
 		>
-			<span class="text-transparent bg-clip-text bg-main-gradient">Optimize</span>
+			<span class="bg-main-gradient bg-clip-text text-transparent">Optimize</span>
 			your browser experience
 		</h1>
 
 		<span
-			class="text-center text-md md:text-xl text-offwhite opacity-0 animate-fade-in [animation-delay:100ms]"
+			class="text-md animate-fade-in text-center text-offwhite opacity-0 [animation-delay:100ms] md:text-xl"
 			>A tool for organizing your browser environment in one place <br class="hidden md:block" />to
 			streamline your workflow.
 		</span>
 		<div
-			class="flex flex-col md:flex-row justify-center gap-4 md:gap-10 mt-12 px-12 opacity-0 animate-fade-in [animation-delay:250ms]"
+			class="mt-12 flex animate-fade-in flex-col justify-center gap-4 px-12 opacity-0 [animation-delay:250ms] md:flex-row md:gap-10"
 		>
 			<button
 				on:click={() => signIn('github')}
-				class=" h-12 px-6 bg-white text-black rounded-md font-medium text-base flex justify-center items-center hover:text-white hover:bg-transparent transition-colors border border-white"
+				class=" flex h-12 items-center justify-center rounded-md border border-white bg-white px-6 text-base font-medium text-black transition-colors hover:bg-transparent hover:text-white"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					xmlns:xlink="http://www.w3.org/1999/xlink"
 					aria-hidden="true"
 					role="img"
-					class="flex-shrink-0 h-5 w-5 -ml-1 mr-3"
+					class="-ml-1 mr-3 h-5 w-5 flex-shrink-0"
 					style=""
 					width="0.97em"
 					height="1em"
@@ -50,7 +50,7 @@
 					<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
 				</svg> -->
 			</button>
-			<button class="hover:text-offwhite transition-colors font-medium">Get extension</button>
+			<button class="font-medium transition-colors hover:text-offwhite">Get extension</button>
 		</div>
 	</div>
 </section>

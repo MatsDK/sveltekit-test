@@ -2,33 +2,46 @@
 	import type { Link } from '@prisma/client';
 	import Icon from '@iconify/svelte';
 	import NewLinkModal from './NewLinkModal.svelte';
+	import { contextMenu } from './store';
 
 	export let links: Link[];
 	let showModal = false;
+
+	let { showMenu, tab, ...pos } = $contextMenu;
+
+	const onRightClick = async (e: MouseEvent, tab: Link) => {
+		if (showMenu) {
+			contextMenu.set({ ...pos, showMenu: false, tab });
+			await new Promise((res) => setTimeout(res, 100));
+		}
+
+		contextMenu.set({ x: e.clientX, y: e.clientY, showMenu: true, tab });
+	};
 </script>
 
 <div
-	class=" absolute w-full flex items-center justify-center pointer-events-none z-10 backdrop-blur-md backdrop-saturate-150"
+	class="pointer-events-none absolute z-10 flex w-full items-center justify-center backdrop-blur-md backdrop-saturate-150"
 >
 	<div
-		class="border-b border-border-color max-w-max-page-width px-5 rounded-md text-white gap-4 pointer-events-auto flex w-full overflow-x-auto py-4 justify-center"
+		class="pointer-events-auto flex w-full max-w-max-page-width justify-center gap-4 overflow-x-auto rounded-md border-b border-border-color px-5 py-4 text-white"
 	>
 		{#each links.filter((link) => link.home) as link}
 			<a
 				href={link.href}
-				class="flex flex-col items-center animate-fade-in overflow-hidden justify-center w-12 shrink-0"
+				class="flex w-12 shrink-0 animate-fade-in flex-col items-center justify-center overflow-hidden"
 				title={link.alias}
 				on:click|preventDefault={() => {
 					window.open(link.href, '_blank');
 				}}
+				on:contextmenu|preventDefault={(e) => onRightClick(e, link)}
 			>
-				<div class="w-10 h-10 rounded-lg overflow-hidden">
-					<img class="w-10 h-10" src={link.icon} alt={link.alias} />
+				<div class="h-10 w-10 overflow-hidden rounded-lg">
+					<img class="h-10 w-10" src={link.icon} alt={link.alias} />
 				</div>
 			</a>
 		{/each}
 		<button
-			class="border border-border-color rounded-lg w-12 h-12 flex items-center justify-center bg-secondary animate-fade-i shrink-0"
+			class="animate-fade-i flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-border-color bg-secondary"
 			on:click={() => (showModal = !showModal)}
 		>
 			<Icon icon="mdi:plus" class="text-2xl text-white" />

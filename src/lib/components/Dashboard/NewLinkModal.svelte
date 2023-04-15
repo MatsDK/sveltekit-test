@@ -59,26 +59,26 @@
 </script>
 
 <div
-	class="absolute inset-0 w-screen h-screen flex items-center justify-center bg-black/20 z-20"
+	class="absolute inset-0 z-20 flex h-screen w-screen items-center justify-center bg-black/20"
 	on:click|self={() => (showModal = false)}
 >
-	<div class="w-[440px] bg-secondary flex flex-col border border-border-color rounded-md p-3">
-		<div class="flex flex-row justify-between mb-3">
-			<h2 class="font-semibold text-lg">Create a new tab</h2>
+	<div class="flex w-[440px] flex-col rounded-md border border-border-color bg-secondary p-3">
+		<div class="mb-3 flex flex-row justify-between">
+			<h2 class="text-lg font-semibold">Create a new tab</h2>
 			<button on:click={() => (showModal = false)}>
 				<Icon
 					icon="ic:baseline-close"
-					class="text-2xl text-gray-text hover:text-white transition-colors"
+					class="text-2xl text-gray-text transition-colors hover:text-white"
 				/>
 			</button>
 		</div>
 
-		<div class="py-2 border-t border-border-color flex items-center gap-2">
-			<p class="text-light-gray-text font-semibold">Location</p>
+		<div class="flex items-center gap-2 border-t border-border-color py-2">
+			<p class="font-semibold text-light-gray-text">Location</p>
 
 			<select
 				bind:value={selectedLocation}
-				class="text-white border border-border-color bg-secondary outline-none px-2"
+				class="border border-border-color bg-secondary px-2 text-white outline-none"
 			>
 				<option value="recent">Recently added</option>
 				<option value="home">Home</option>
@@ -93,7 +93,7 @@
 			<div class="flex flex-col gap-1 ">
 				<label class="font-semibold text-light-gray-text">Tab url</label>
 				<input
-					class="rounded-md bg-border-color outline-none px-2 py-1 text-white"
+					class="rounded-md bg-border-color px-2 py-1 text-white outline-none"
 					type="text"
 					placeholder="www.example.com"
 					name="href"
@@ -101,10 +101,10 @@
 					bind:this={ref}
 				/>
 			</div>
-			<div class="flex flex-col gap-1 mt-5">
+			<div class="mt-5 flex flex-col gap-1">
 				<label class="font-semibold text-light-gray-text">Name</label>
 				<input
-					class="rounded-md bg-border-color outline-none px-2 py-1 text-white"
+					class="rounded-md bg-border-color px-2 py-1 text-white outline-none"
 					type="text"
 					placeholder="Example website"
 					name="alias"
@@ -113,19 +113,19 @@
 			</div>
 			<button
 				type="submit"
-				class="w-full bg-white font-semibold text-gray-900 hover:text-black rounded-lg py-1 mt-5"
+				class="mt-5 w-full rounded-lg bg-white py-1 font-semibold text-gray-900 hover:text-black "
 				>Create Tab</button
 			>
 		</form>
 
 		{#if !hideCreateFolder}
-			<div class="border-t border-border-color mt-2">
-				<h2 class="font-semibold text-lg">Create a new folder</h2>
+			<div class="mt-2 border-t border-border-color">
+				<h2 class="text-lg font-semibold">Create a new folder</h2>
 				<form on:submit|preventDefault={createFolder}>
-					<div class="flex flex-col gap-1 mt-3">
+					<div class="mt-3 flex flex-col gap-1">
 						<label class="font-semibold text-light-gray-text">Folder name</label>
 						<input
-							class="rounded-md bg-border-color outline-none px-2 py-1 text-white"
+							class="rounded-md bg-border-color px-2 py-1 text-white outline-none"
 							type="text"
 							placeholder="Example folder"
 							name="name"
@@ -134,7 +134,7 @@
 					</div>
 					<button
 						type="submit"
-						class="w-full bg-white font-semibold text-gray-900 hover:text-black rounded-lg py-1 mt-5"
+						class="mt-5 w-full rounded-lg bg-white py-1 font-semibold text-gray-900 hover:text-black"
 						>Create Folder</button
 					>
 				</form>

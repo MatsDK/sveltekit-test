@@ -3,7 +3,7 @@
 	import './styles.css';
 </script>
 
-<div class="bg-primary  text-white h-screen overflow-auto">
+<div class="h-screen  overflow-auto bg-primary text-white">
 	<main class="overflow-auto">
 		<slot />
 	</main>

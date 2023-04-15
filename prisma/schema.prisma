@@ -9,12 +9,13 @@ datasource db {
 }
 
 model Link {
-  uid    String  @id @default(cuid())
-  alias  String
-  href   String
-  userId String
-  icon   String
-  home   Boolean
+  uid       String   @id @default(cuid())
+  alias     String
+  href      String
+  userId    String
+  icon      String
+  home      Boolean
+  createdAt DateTime @default(now())
 
   Folder    Folder? @relation(fields: [folder_id], references: [uid])
   folder_id String?

@@ -4,20 +4,20 @@
 	import Logo from '../Logo.svelte';
 </script>
 
-<header class="fixed z-10 w-full top-0 h-header-height backdrop-blur-md backdrop-saturate-150">
-	<nav class=" max-w-max-page-width max-page-width mx-auto w-full h-full px-5">
+<header class="fixed top-0 z-10 h-header-height w-full backdrop-blur-md backdrop-saturate-150">
+	<nav class=" max-page-width mx-auto h-full w-full max-w-max-page-width px-5">
 		<ul
-			class="flex gap-5 items-center h-full relative after:absolute after:h-px after:w-full after:bottom-0 after:bg-white/10 font-medium"
+			class="relative flex h-full items-center gap-5 font-medium after:absolute after:bottom-0 after:h-px after:w-full after:bg-white/10"
 		>
 			<li class="">
 				<a href="/" class="">
 					<Logo />
 				</a>
 			</li>
-			<li class="md:block hidden hover:text-offwhite transition-colors">
+			<li class="hidden transition-colors hover:text-offwhite md:block">
 				<a href="/">Home</a>
 			</li>
-			<li class="md:block hidden hover:text-offwhite transition-colors">
+			<li class="hidden transition-colors hover:text-offwhite md:block">
 				<a href="/">Features</a>
 			</li>
 
@@ -30,7 +30,7 @@
 				<li class="ml-auto">
 					<a
 						href="/dashboard"
-						class="border-white border px-3 py-[2px] rounded-lg hover:text-white text-black bg-white transition-colors hover:bg-transparent"
+						class="rounded-lg border border-white bg-white px-3 py-[2px] text-black transition-colors hover:bg-transparent hover:text-white"
 					>
 						Dashboard
 					</a>
@@ -39,7 +39,7 @@
 					<img
 						src={$page.data.session.user.image}
 						alt="User image"
-						class="rounded-full w-10 h-10 bg-main-gradient"
+						class="h-10 w-10 rounded-full bg-main-gradient"
 					/>
 				{/if}
 				<button on:click={() => signOut()}> Log out </button>
@@ -47,7 +47,7 @@
 			{:else}
 				<li class="ml-auto">
 					<button
-						class="border-white border px-3 py-[2px] rounded-lg hover:text-white text-black bg-white transition-colors hover:bg-transparent"
+						class="rounded-lg border border-white bg-white px-3 py-[2px] text-black transition-colors hover:bg-transparent hover:text-white"
 						on:click={() => signIn('github')}>Log in</button
 					>
 				</li>

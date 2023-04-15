@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { session } from './store'
+	import { session, windowState } from './store'
 	import { serverUrl } from './utils'
+	import Back from './icons/Back.svelte'
 
 	console.log($session)
 
@@ -28,14 +29,24 @@
 
 {#if !!$session}
 	<div class="border-b border-border-color flex items-center justify-between px-2 py-1">
-		<a href={`${serverUrl}/dashboard`} target="_blank" class="font-semibold">Go to dashboard</a>
+		<div class="flex items-center gap-2">
+			{#if $windowState !== 'home'}
+				<button on:click={() => windowState.set('home')}><Back /></button>
+			{/if}
+			<a href={`${serverUrl}/dashboard`} target="_blank" class="font-semibold">
+				Go to dashboard
+			</a>
+		</div>
 		<!-- <h1 class="font-semibold">
 			Welcome {$session.user.name}
 			<button on:click={signOut}>Sign out</button>
 		</h1> -->
-		<div class="w-7 h-7 rounded-full overflow-hidden">
+		<button
+			class="w-7 h-7 rounded-full overflow-hidden"
+			on:click={() => windowState.set('profile')}
+		>
 			<img src={$session.user.image} alt="profile" width={28} height={28} />
-		</div>
+		</button>
 	</div>
 {:else}
 	<div>
