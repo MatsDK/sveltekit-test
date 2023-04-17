@@ -30,7 +30,7 @@
 		fill="white"
 	/>
 </svg> -->
-<svg width="30" height="30" viewBox="0 0 215 212" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- <svg width="30" height="30" viewBox="0 0 215 212" fill="none" xmlns="http://www.w3.org/2000/svg">
 	<path
 		fill-rule="evenodd"
 		clip-rule="evenodd"
@@ -45,4 +45,34 @@
 		transform="rotate(-45.22 8.61505 32.067)"
 		fill="white"
 	/>
+</svg> -->
+
+<svg width="30" height="30" viewBox="0 0 199 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<path
+		fill-rule="evenodd"
+		clip-rule="evenodd"
+		d="M0 0H119.542L184.912 63.2179L185.18 62.9589L185.18 139.686L161.107 115.509V84.1695L108.33 31.3398H31.4806V102.526L86.1087 154.908H127.774L152.31 179.084H65.1021L65.3699 178.825L0 115.607V0Z"
+		fill="white"
+	/>
+	<rect
+		width="33.4431"
+		height="231.562"
+		transform="matrix(0.716167 -0.697929 0.721502 0.692413 7.97668 28.7134)"
+		fill="url(#paint0_linear_107_2)"
+	/>
+	<defs>
+		<linearGradient
+			id="paint0_linear_107_2"
+			x1="21.9737"
+			y1="229.087"
+			x2="2.60868"
+			y2="0.929236"
+			gradientUnits="userSpaceOnUse"
+		>
+			<stop stop-color="#031C27" />
+			<stop offset="0.5625" stop-color="#0EA5E9" />
+			<stop offset="0.765625" stop-color="white" />
+			<stop offset="1" stop-color="white" />
+		</linearGradient>
+	</defs>
 </svg>

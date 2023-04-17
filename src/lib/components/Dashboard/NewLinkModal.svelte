@@ -17,8 +17,8 @@
 	const createTab = async (event: Event) => {
 		const formData = new FormData(event.target as HTMLFormElement);
 
-		const alias = formData.get('alias')?.toString() || '';
-		const href = formData.get('href')?.toString() || '';
+		const alias = formData.get('alias')?.toString().trim() || '';
+		const href = formData.get('href')?.toString().trim() || '';
 
 		if (selectedLocation === 'home') {
 			await trpc($page).tabs.create.mutate({

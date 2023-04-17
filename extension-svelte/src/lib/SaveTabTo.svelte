@@ -20,6 +20,9 @@
 	const saveCurrentTab = async () => {
 		if (!currentTab) return
 
+		href = href.trim()
+		alias = alias.trim()
+
 		if (selectedLocation === 'home') {
 			await trpc.tabs.create.mutate({
 				alias,

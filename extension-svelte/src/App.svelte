@@ -2,6 +2,7 @@
 	import Header from './lib/Header.svelte'
 	import Home from './lib/Home.svelte'
 	import SaveTabTo from './lib/SaveTabTo.svelte'
+	import Profile from './lib/Profile.svelte'
 	import { session, windowState } from './lib/store'
 </script>
 
@@ -14,7 +15,7 @@
 			{:else if $windowState === 'save-to'}
 				<SaveTabTo />
 			{:else if $windowState === 'profile'}
-				<div>Profile</div>
+				<Profile />
 			{/if}
 		{/if}
 	</section>

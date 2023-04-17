@@ -1,10 +1,10 @@
 {
 	"manifest_version": 3,
-	"name": "Test extension",
+	"name": "Save tabs",
 	"description": "Save your browser tabs",
 	"version": "0.0.1",
 	"permissions": ["tabs", "cookies"],
-	"host_permissions": ["http://127.0.0.1:5173/"],
+	"host_permissions": ["http://127.0.0.1:5173/", "https://sveltekit-test-matsdk.vercel.app/"],
 	"action": {
 		"default_popup": "index.html"
 	},
