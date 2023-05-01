@@ -91,6 +91,7 @@
 		/>
 		<button
 			class="p-1"
+			tabIndex="-1" 
 			on:click={() => {
 				searchTerm = null
 				showSearch = false
@@ -108,7 +109,7 @@
 
 	{@const recentLinks = links.filter((l) => !l.home)}
 	{@const filteredLinks = searchTerm
-		? recentLinks.filter(
+		? links.filter(
 				(l) =>
 					l.alias.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? '') ||
 					l.href.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? ''),

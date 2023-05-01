@@ -20,10 +20,10 @@
 </script>
 
 <div
-	class="pointer-events-none absolute z-10 flex w-full items-center justify-center backdrop-blur-md backdrop-saturate-150"
+	class="pointer-events-none z-10 flex w-full items-center justify-center backdrop-blur-md backdrop-saturate-150 border-b border-border-color h-header-height py-10"
 >
 	<div
-		class="pointer-events-auto flex w-full max-w-max-page-width justify-center gap-4 overflow-x-auto rounded-md border-b border-border-color px-5 py-4 text-white"
+		class="pointer-events-auto flex w-full max-w-max-page-width justify-center gap-4 overflow-x-auto rounded-md  px-5 py-4 text-white"
 	>
 		{#each links.filter((link) => link.home) as link}
 			<a

@@ -62,7 +62,7 @@
 	class="absolute inset-0 z-20 flex h-screen w-screen items-center justify-center bg-black/20"
 	on:click|self={() => (showModal = false)}
 >
-	<div class="flex w-[440px] flex-col rounded-md border border-border-color bg-secondary p-3">
+	<div class="flex w-[440px] flex-col rounded-md border border-border-color bg-primary p-3">
 		<div class="mb-3 flex flex-row justify-between">
 			<h2 class="text-lg font-semibold">Create a new tab</h2>
 			<button on:click={() => (showModal = false)}>

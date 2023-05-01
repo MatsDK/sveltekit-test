@@ -7,12 +7,12 @@
 		<h1
 			class=" mb-10 mt-20 animate-fade-in text-center text-5xl font-bold opacity-0 md:mt-28 md:text-8xl"
 		>
-			<span class="bg-main-gradient bg-clip-text text-transparent">Optimize</span>
-			your browser experience
+			<!-- <span class="bg-main-gradient bg-clip-text text-transparent">Optimize</span> -->
+			Optimize your browser experience
 		</h1>
 
 		<span
-			class="text-md animate-fade-in text-center text-offwhite opacity-0 [animation-delay:100ms] md:text-xl"
+			class="text-md animate-fade-in text-center text-gray-text opacity-0 [animation-delay:100ms] md:text-xl "
 			>A tool for organizing your browser environment in one place <br class="hidden md:block" />to
 			streamline your workflow.
 		</span>
