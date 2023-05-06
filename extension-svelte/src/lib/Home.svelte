@@ -145,9 +145,8 @@
 		? links.filter(
 				(l) =>
 					(l.alias.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? '') ||
-						l.href.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? '')) &&
-					l.home == !folderId,
-		  )
+						l.href.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? '')) 
+		  ).filter(l => folderId && l.home ? false : true)
 		: recentLinks}
 	{#each filteredLinks as link}
 		<a
