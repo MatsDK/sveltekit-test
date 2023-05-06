@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
 	import Close from './icons/Close.svelte'
+	import Folder from './icons/Folder.svelte'
 	import { windowState } from './store'
 	import { trpc } from './trpc'
 	import { getCurrentTab } from './utils'
@@ -21,6 +22,8 @@
 	let showSearch = false
 	let searchRef: HTMLInputElement
 
+	let folderId: string | null = null
+
 	onMount(() => {
 		const focusSearch = (e: KeyboardEvent) => {
 			if (e.key !== '/' || !searchRef) return
@@ -34,7 +37,7 @@
 		return () => document.removeEventListener('keydown', focusSearch)
 	})
 
-	$: console.log(searchTerm)
+	$: console.log(folderId)
 
 	$: if (searchTerm != null) showSearch = true
 
@@ -59,7 +62,7 @@
 	>
 </div>
 
-{#await trpc.tabs.getHomeLinks.query() then { folders, links }}
+{#await trpc.tabs.getLinks.query({ folderId }) then { folders, links }}
 	<div class="flex flex-wrap items-center gap-4 py-2 justify-center">
 		{#each links.filter((l) => l.home) as link}
 			<a
@@ -91,7 +94,7 @@
 		/>
 		<button
 			class="p-1"
-			tabIndex="-1" 
+			tabIndex="-1"
 			on:click={() => {
 				searchTerm = null
 				showSearch = false
@@ -101,18 +104,49 @@
 		</button>
 	</div>
 
-	{#each folders as folder}
-		<div>
-			Folder: {folder.name}
-		</div>
+	{#if folderId}
+		<button
+			class="group flex h-7 items-center gap-4 overflow-hidden px-5 transition-colors hover:bg-secondary cursor-pointer w-full"
+			on:click={() => {
+				searchTerm = null
+				showSearch = false
+				folderId = null
+			}}
+		>
+			<Folder />
+			<span class="overflow-hidden overflow-ellipsis whitespace-nowrap group-hover:underline">
+				..
+			</span>
+		</button>
+	{/if}
+	{@const filteredFolders = searchTerm
+		? folders.filter((f) =>
+				f.name.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? ''),
+		  )
+		: folders}
+	{#each filteredFolders as folder}
+		<button
+			class="group flex h-7 items-center gap-4 overflow-hidden px-5 transition-colors hover:bg-secondary cursor-pointer w-full"
+			on:click={() => {
+				searchTerm = null
+				showSearch = false
+				folderId = folder.uid
+			}}
+		>
+			<Folder />
+			<span class="overflow-hidden overflow-ellipsis whitespace-nowrap group-hover:underline">
+				{folder.name}
+			</span>
+		</button>
 	{/each}
 
 	{@const recentLinks = links.filter((l) => !l.home)}
 	{@const filteredLinks = searchTerm
 		? links.filter(
 				(l) =>
-					l.alias.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? '') ||
-					l.href.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? ''),
+					(l.alias.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? '') ||
+						l.href.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? '')) &&
+					l.home == !folderId,
 		  )
 		: recentLinks}
 	{#each filteredLinks as link}

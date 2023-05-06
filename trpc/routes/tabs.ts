@@ -2,26 +2,37 @@ import db from '../../src/lib/db';
 import { authProcedure, t } from '../t';
 import z from 'zod';
 
+const getFoldersAndLinksById = async (userId: string, id: string | null) => {
+	return {
+		folders: await db.folder.findMany({
+			where: { userId, parentFolder_id: id },
+			include: {
+				links: { orderBy: { createdAt: 'desc' } },
+				folders: true
+			}
+		}),
+		links: await db.link.findMany({
+			where: { OR: [{ userId, folder_id: id }, { home: true }] },
+			orderBy: {
+				createdAt: 'desc'
+			}
+		})
+	};
+};
+
 export const tabRouter = t.router({
 	getHomeLinks: authProcedure.query(async ({ ctx: { userId } }) => {
 		if (!userId) return;
 
-		return {
-			folders: await db.folder.findMany({
-				where: { userId, parentFolder_id: null },
-				include: {
-					links: { orderBy: { createdAt: 'desc' } },
-					folders: true
-				}
-			}),
-			links: await db.link.findMany({
-				where: { userId, folder_id: null },
-				orderBy: {
-					createdAt: 'desc'
-				}
-			})
-		};
+		return getFoldersAndLinksById(userId, null);
 	}),
+	getLinks: authProcedure
+		.input(z.object({ folderId: z.string().nullable() }))
+		.query(async ({ ctx: { userId }, input: { folderId } }) => {
+			if (!userId) return;
+
+			return getFoldersAndLinksById(userId, folderId);
+		}),
 	create: authProcedure
 		.input(
 			z.object({

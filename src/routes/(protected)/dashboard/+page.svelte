@@ -18,7 +18,7 @@
 
 <section class="flex h-screen overflow-hidden">
 	<div
-		class="h-screen w-header-height border-r border-border-color flex flex-col items-center py-7 gap-4"
+		class="flex h-screen w-header-height flex-col items-center gap-4 border-r border-border-color py-7"
 	>
 		<a href="/">
 			<Logo />
@@ -39,7 +39,7 @@
 	</div>
 	<div class="flex-1 overflow-auto">
 		<HomeLinks links={data.links} />
-		<div class="flex flex-wrap justify-center gap-10 mt-16">
+		<div class="mt-16 flex flex-wrap justify-center gap-10">
 			<LinksContainer
 				isDefaultFolder
 				title="Recently added"

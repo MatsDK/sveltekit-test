@@ -82,7 +82,7 @@
 
 <div class="h-fit w-80 shrink-0 rounded-md border border-border-color">
 	<div
-		class="group relative flex h-10 justify-between border-b border-border-color bg-secondary items-center"
+		class="group relative flex h-10 items-center justify-between border-b border-border-color bg-secondary"
 	>
 		<button title="collapse" class="px-2" on:click={() => (isCollapsed = !isCollapsed)}>
 			<Icon
