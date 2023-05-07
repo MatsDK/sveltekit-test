@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { trpc } from '$lib/trpc/client';
 	import Icon from '@iconify/svelte';
 	import type { Folder, Link } from '@prisma/client';
 	import { fade } from 'svelte/transition';
+	import { renameModal } from './modal';
 	import NewLinkModal from './NewLinkModal.svelte';
 	import { contextMenu } from './store';
 	import Tab from './Tab.svelte';
@@ -44,21 +46,22 @@
 		console.log(res);
 	};
 
-	const renameFolder = async () => {
-		if (!folderId) return;
+	// const renameFolder = async () => {
+	// 	if (!folderId) return;
 
-		const newName = prompt('Enter a new name')?.trim();
-		if (!newName) return alert('invalid name');
+	// 	const newName = prompt('Enter a new name')?.trim();
+	// 	if (!newName) return alert('invalid name');
 
-		const res = await trpc($page).folders.rename.mutate({ folderId, newName });
-		console.log(res);
-	};
+	// 	const res = await trpc($page).folders.rename.mutate({ folderId, newName });
+	// 	console.log(res);
+	// };
 
 	const deleteFolder = async () => {
 		if (!folderId) return;
 
 		const res = await trpc($page).folders.delete.mutate({ folderId });
 		console.log(res);
+		await invalidateAll();
 	};
 
 	const hideContextMenu = () => {
@@ -70,6 +73,7 @@
 
 		const res = await trpc($page).tabs.delete.mutate({ tabId: $contextMenu.tab.uid });
 		console.log(res);
+		await invalidateAll();
 	};
 
 	const makeHomeTab = async () => {
@@ -77,6 +81,23 @@
 
 		const res = await trpc($page).tabs.makeHome.mutate({ tabId: $contextMenu.tab.uid });
 		console.log(res);
+		await invalidateAll();
+	};
+
+	const renameFolder = () => {
+		if (!folderId) return;
+		renameModal.set({ active: true, name: title, id: folderId, type: 'folder' });
+	};
+
+	const renameTab = () => {
+		if (!folderId || !$contextMenu.tab) return;
+
+		renameModal.set({
+			active: true,
+			name: $contextMenu.tab.alias,
+			id: $contextMenu.tab.uid,
+			type: 'tab'
+		});
 	};
 </script>
 
@@ -119,9 +140,9 @@
 					>
 						Add Tab
 					</li>
-					{#if !isDefaultFolder}<li class="" on:click={renameFolder}>Rename Folder</li>{/if}
 					<li class="" on:click={clearFolder}>Clear Folder</li>
 					{#if !isDefaultFolder}<li class="" on:click={deleteFolder}>Delete Folder</li>{/if}
+					{#if !isDefaultFolder}<li class="" on:click={renameFolder}>Rename Folder</li>{/if}
 				</ul>
 			</div>
 		{/if}
@@ -164,6 +185,7 @@
 				Open tab
 			</li>
 			<li on:click={deleteTab}>Delete tab</li>
+			<li on:click={renameTab}>Rename tab</li>
 			{#if !tab.home}
 				<li on:click={makeHomeTab}>Move to home row</li>
 			{/if}

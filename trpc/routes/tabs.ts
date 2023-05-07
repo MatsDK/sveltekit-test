@@ -64,6 +64,23 @@ export const tabRouter = t.router({
 
 			return { success: true };
 		}),
+	rename: authProcedure
+		.input(
+			z.object({
+				tabId: z.string(),
+				newName: z.string()
+			})
+		)
+		.mutation(async ({ input: { newName, tabId }, ctx: { userId } }) => {
+			if (!userId) return;
+
+			await db.link.update({
+				where: { uid: tabId },
+				data: { alias: newName }
+			});
+
+			return { success: true };
+		}),
 	makeHome: authProcedure
 		.input(z.object({ tabId: z.string() }))
 		.mutation(async ({ input: { tabId }, ctx: { userId } }) => {

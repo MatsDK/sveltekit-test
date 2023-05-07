@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { invalidate, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { trpc } from '$lib/trpc/client';
 	import Icon from '@iconify/svelte';
@@ -40,6 +41,7 @@
 		}
 
 		showModal = false;
+		await invalidateAll();
 	};
 
 	const createFolder = async (event: Event) => {
@@ -49,6 +51,7 @@
 
 		const res = await trpc($page).folders.create.mutate({ name });
 		if (res.success) showModal = false;
+		await invalidateAll();
 	};
 
 	const loadFolders = async () => {

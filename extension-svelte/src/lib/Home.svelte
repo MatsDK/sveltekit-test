@@ -50,16 +50,20 @@
 	<button
 		on:click={saveCurrentTab}
 		class="bg-secondary rounded-md px-2 py-1 font-semibold text-neutral-300 hover:text-white transition-colors"
-		>Save current tab</button
 	>
+		Save current tab
+	</button>
 	<button
 		class="bg-secondary rounded-md px-2 py-1 font-semibold text-neutral-300 hover:text-white transition-colors"
-		on:click={() => windowState.set('save-to')}>Save tab to</button
+		on:click={() => windowState.set('save-to')}
 	>
+		Save tab to
+	</button>
 	<button
 		class="bg-secondary rounded-md px-2 py-1 font-semibold text-neutral-400 hover:text-white transition-colors"
-		>Save all windows</button
 	>
+		Save all windows
+	</button>
 </div>
 
 {#await trpc.tabs.getLinks.query({ folderId }) then { folders, links }}
@@ -142,11 +146,13 @@
 
 	{@const recentLinks = links.filter((l) => !l.home)}
 	{@const filteredLinks = searchTerm
-		? links.filter(
-				(l) =>
-					(l.alias.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? '') ||
-						l.href.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? '')) 
-		  ).filter(l => folderId && l.home ? false : true)
+		? links
+				.filter(
+					(l) =>
+						l.alias.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? '') ||
+						l.href.toLowerCase().includes(searchTerm?.trim().toLowerCase() ?? ''),
+				)
+				.filter((l) => (folderId && l.home ? false : true))
 		: recentLinks}
 	{#each filteredLinks as link}
 		<a

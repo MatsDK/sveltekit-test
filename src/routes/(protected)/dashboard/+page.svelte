@@ -6,9 +6,12 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import Icon from '@iconify/svelte';
 	import { page } from '$app/stores';
+	import RenameModal from '$lib/components/Dashboard/RenameModal.svelte';
 
 	export let data: PageData;
 	let showModal = false;
+
+	$: console.log(import.meta.env.MODE);
 </script>
 
 <svelte:head>
@@ -60,3 +63,5 @@
 {#if showModal}
 	<NewLinkModal bind:showModal />
 {/if}
+
+<RenameModal />
