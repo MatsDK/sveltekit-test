@@ -1,11 +1,11 @@
-<script lang="ts">
+<script lang="ts" generic="T">
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { trpc } from '$lib/trpc/client';
 	import Icon from '@iconify/svelte';
 	import type { Folder, Link } from '@prisma/client';
 	import { fade } from 'svelte/transition';
-	import { renameModal } from './modal';
+	import { moveTabModal, renameModal } from './modal';
 	import NewLinkModal from './NewLinkModal.svelte';
 	import { contextMenu } from './store';
 	import Tab from './Tab.svelte';
@@ -46,16 +46,6 @@
 		console.log(res);
 	};
 
-	// const renameFolder = async () => {
-	// 	if (!folderId) return;
-
-	// 	const newName = prompt('Enter a new name')?.trim();
-	// 	if (!newName) return alert('invalid name');
-
-	// 	const res = await trpc($page).folders.rename.mutate({ folderId, newName });
-	// 	console.log(res);
-	// };
-
 	const deleteFolder = async () => {
 		if (!folderId) return;
 
@@ -82,6 +72,20 @@
 		const res = await trpc($page).tabs.makeHome.mutate({ tabId: $contextMenu.tab.uid });
 		console.log(res);
 		await invalidateAll();
+	};
+
+	const moveTab = async () => {
+		if (!$contextMenu.tab) return;
+
+		moveTabModal.set({
+			active: true,
+			currentLocation: $contextMenu.tab.folder_id
+				? $contextMenu.tab.folder_id
+				: $contextMenu.tab.home
+				? 'home'
+				: undefined,
+			id: $contextMenu.tab.uid
+		});
 	};
 
 	const renameFolder = () => {
@@ -189,6 +193,7 @@
 			{#if !tab.home}
 				<li on:click={makeHomeTab}>Move to home row</li>
 			{/if}
+			<li on:click={moveTab}>Move tab</li>
 		</ul>
 	</div>
 {/if}

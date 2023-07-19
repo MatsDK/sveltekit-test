@@ -12,3 +12,15 @@ export const renameModal = writable<RenameModal>({ active: false });
 export const closeRenameModal = () => {
 	renameModal.set({ active: false });
 };
+
+type MoveTabModal = {
+	active: boolean;
+	currentLocation?: string;
+	id?: string;
+};
+
+export const moveTabModal = writable<MoveTabModal>({ active: false });
+
+export const closeMoveTabModal = () => {
+	moveTabModal.set({ active: false });
+};

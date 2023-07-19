@@ -7,6 +7,7 @@
 	import Icon from '@iconify/svelte';
 	import { page } from '$app/stores';
 	import RenameModal from '$lib/components/Dashboard/RenameModal.svelte';
+	import MoveTabModal from '$lib/components/Dashboard/MoveTabModal.svelte';
 
 	export let data: PageData;
 	let showModal = false;
@@ -65,3 +66,4 @@
 {/if}
 
 <RenameModal />
+<MoveTabModal />

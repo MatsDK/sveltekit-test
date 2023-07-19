@@ -2,8 +2,8 @@
 
 chrome.runtime.onMessage.addListener((request, sender, onSuccess) => {
 	if (request.action === 'AUTH_CHECK')
-		fetch('http://127.0.0.1:5173/auth/session', {
-			credentials: 'same-origin',
+		fetch(`https://sveltekit-test-matsdk.vercel.app/auth/session`, {
+			// credentials: 'same-origin',
 		})
 			.then((response) => response.json())
 			.then((session) => {
